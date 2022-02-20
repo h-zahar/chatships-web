@@ -27,10 +27,8 @@ const Chat = () => {
         });
 
         return () => {
-            socket.emit('disconnect', () => {
-                socket.emit('disconnect');
-                socket.off();
-            });
+            socket.emit('disconnect');
+            socket.off();
         };
         
     }, [ENDPOINT, location.search]);
