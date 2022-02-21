@@ -27,8 +27,10 @@ const Chat = () => {
         socket = io(ENDPOINT);
         console.log(socket);
 
-        socket.emit('join', { name, room }, () => {
-            
+        socket.emit('join', { name, room }, (error) => {
+            if(error) {
+                window.alert(error);
+            }
         });
 
         return () => {
