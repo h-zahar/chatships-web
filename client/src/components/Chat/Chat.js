@@ -15,7 +15,7 @@ const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const ENDPOINT = 'htts://server-chatships.herokuapp.com/';
+    const ENDPOINT = 'https://server-chatships.herokuapp.com/';
 
     const location = useLocation();
     useEffect(() => {
