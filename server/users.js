@@ -21,11 +21,7 @@ const removeUser = (id) => {
     const index = users.findIndex(user => user.id === id);
 
     if (index !== 1) {
-        return users.splice(index, 1)[0];
-    }
-
-    else {
-        return { error: 'Something Went Wrong!' };
+        users.splice(index, 1)[0];
     }
 };
 
