@@ -25,7 +25,7 @@ const Chat = () => {
         setRoom(room);
 
         socket = io(ENDPOINT);
-        console.log(socket);
+        // console.log(socket);
 
         socket.emit('join', { name, room }, (error) => {
             if(error) {
@@ -35,17 +35,23 @@ const Chat = () => {
 
         return () => {
             socket.emit('disconnect');
-            socket.off();
+            socket.off('disconnect');
+            socket.off('join');
         };
         
-    }, [ENDPOINT, location.search]);
+    }, [location.search]);
 
 
     useEffect(() => {
         socket.on('message', (message) => {
             setMessages([...messages, message]);
         });
-        console.log(message, messages);
+        
+        return () => {
+            socket.off('message');
+        }
+
+        // console.log(message, messages);
     }, [messages]);
 
     const sendMessage = (e) => {

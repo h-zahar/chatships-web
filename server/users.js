@@ -8,7 +8,7 @@ const addUser = ({ id, name, room }) => {
     if (index === -1) {
         const user = { id, name, room};
         users.push(user);
-        console.log(user, users);
+        // console.log(user, users);
         return { user };
     }
 

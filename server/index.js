@@ -20,11 +20,11 @@ const io = socketio(server, {
   });
 
 io.on('connection', (socket) => {
-    console.log('New connection!');
+    // console.log('New connection!');
 
     socket.on('join', ({ name, room }, callback) => {
         const { user, error } = addUser({ id: socket.id, name, room });
-        console.log(user);
+        // console.log(user);
 
         if(error) {
             return callback(error);
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('User has disconnected');
+        // console.log('User has disconnected');
         const user = removeUser(socket.id);
 
         if (user) {
