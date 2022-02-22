@@ -26,7 +26,7 @@ const Chat = () => {
         setName(name);
         setRoom(room);
 
-        socket = io(ENDPOINT);
+        socket = io(ENDPOINT, { allowedHeaders: ["accept-header"] }, { methods: ["GET", "POST"] }, { credentials: true });
         // console.log(socket);
 
         socket.emit('join', { name, room }, (error) => {
@@ -50,7 +50,6 @@ const Chat = () => {
         });
 
         socket.on('roomData', ({ users }) => {
-            console.log(users);
             setUsers(users);
         });
         
