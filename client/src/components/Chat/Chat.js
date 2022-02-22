@@ -12,10 +12,11 @@ let socket;
 const Chat = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const ENDPOINT = 'https://server-chatships.herokuapp.com/';
+    const ENDPOINT = 'http://localhost:5000/';
 
     const location = useLocation();
     useEffect(() => {
@@ -46,9 +47,15 @@ const Chat = () => {
         socket.on('message', (message) => {
             setMessages([...messages, message]);
         });
+
+        socket.on('roomData', (users) => {
+            console.log(users);
+            setUsers(users);
+        });
         
         return () => {
             socket.off('message');
+            socket.off('roomData');
         }
 
         // console.log(message, messages);

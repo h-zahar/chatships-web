@@ -5,7 +5,7 @@ const http = require('http');
 
 const port = process.env.PORT || 5000;
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+const { addUser, removeUser, getUser, getUsersInRoom, getRemainedUsersInRoom } = require('./users');
 const router = require('./router');
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-      origin: "https://chatships.web.app",
+      origin: "http://localhost:3000",
       methods: ["GET", "POST"]
     }
   });
@@ -35,12 +35,15 @@ io.on('connection', (socket) => {
 
         socket.join(user.room);
 
+        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
         callback();
     });
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
         io.to(user.room).emit('message', { user: user.name, text: message });
+        io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
         callback();
     });
@@ -51,6 +54,7 @@ io.on('connection', (socket) => {
 
         if (user) {
             io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` });
+            io.to(user.room).emit('roomData', { room: user.room, users: getRemainedUsersInRoom(user.id,user.room) });
             removeUser();
         }
     });
