@@ -15,7 +15,7 @@ const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
-    const ENDPOINT = 'https://server-chatships.herokuapp.com/';
+    const ENDPOINT = 'htts://server-chatships.herokuapp.com/';
 
     const location = useLocation();
     useEffect(() => {
@@ -60,6 +60,8 @@ const Chat = () => {
         if (message) {
             socket.emit('sendMessage', message, () => setMessage(''))
         }
+
+        document.getElementById('in').focus();
 
     };
 

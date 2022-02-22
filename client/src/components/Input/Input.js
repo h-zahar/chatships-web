@@ -4,7 +4,7 @@ import './Input.css';
 const Input = ({ message, setMessage, sendMessage }) => {
     return (
         <form className="form">
-                <input className="input" 
+                <input id="in" className="input" 
                 placeholder="Type here..."
                 value={message}
                 onChange={e => setMessage(e.target.value)} onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
