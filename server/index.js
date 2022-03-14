@@ -14,10 +14,10 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-      origin: "https://chatships.web.app",
-      allowedHeaders: ["accept-header"],
-      methods: ["GET", "POST"],
-      credentials: true
+      origin: "*",
+    //   allowedHeaders: ["accept-header"],
+      methods: ["GET", "POST"]
+    //   credentials: true
     }
   });
 

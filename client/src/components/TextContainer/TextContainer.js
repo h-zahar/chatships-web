@@ -6,11 +6,11 @@ import './TextContainer.css';
 
 const TextContainer = ({ users }) => (
   <div className="textContainer">
-    <div>
+    {/* <div>
       <h1>ChatShips - Have Chatship with your Mates <span role="img" aria-label="emoji">💬</span></h1>
       <h2>Created with React.js, Express.js, Node.js and Socket.io <span role="img" aria-label="emoji">❤️</span></h2>
       <h2>Try out now! <span role="img" aria-label="emoji">⬅️</span></h2>
-    </div>
+    </div> */}
     {
       users
         ? (

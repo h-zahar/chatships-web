@@ -27,11 +27,11 @@ const Chat = () => {
         setRoom(room);
 
         socket = io(ENDPOINT, {
-            reconnectionAttempts: 'infinity',
-            withCredentials: true,
-            extraHeaders: {
-                "accept-header": "approved"
-            }
+            reconnectionAttempts: 'infinity'
+            // withCredentials: true,
+            // extraHeaders: {
+            //     "accept-header": "approved"
+            // }
         });
         // console.log(socket);
 
