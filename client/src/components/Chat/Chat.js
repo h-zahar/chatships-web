@@ -26,7 +26,16 @@ const Chat = () => {
         setName(name);
         setRoom(room);
 
-        socket = io(ENDPOINT);
+        socket = io(ENDPOINT, {
+            withCredentials: false,
+            transportOptions: {
+                polling: {
+                    extraHeaders: {
+                        "custom-header": "checked"
+                    }
+                }
+            }
+        });
             // reconnectionAttempts: 'infinity'
             // withCredentials: true,
             // extraHeaders: {

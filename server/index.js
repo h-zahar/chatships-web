@@ -14,12 +14,22 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-      origin: "*",
-    //   allowedHeaders: ["accept-header"],
-    //   methods: ["GET", "POST"]
-    //   credentials: true
+        origins: ["*"],
+        handlePreflightRequest: (req, res) => {
+            res.writeHand(200, {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,POST",
+                "Access-Control-Allow-Headers": "custom-header",
+                "Access-Control-Allow-Credentials": false
+            });
+            res.end();
+        }
     }
-  });
+});
+
+//   allowedHeaders: ["accept-header"],
+//   methods: ["GET", "POST"]
+//   credentials: true
 
 io.on('connection', (socket) => {
     // console.log('New connection!');
