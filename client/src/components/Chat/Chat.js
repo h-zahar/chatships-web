@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 import './Chat.css';
@@ -16,6 +16,7 @@ const Chat = () => {
     const [users, setUsers] = useState([]);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const history = useHistory();
 
     const ENDPOINT = 'https://server-chatships.herokuapp.com/';
 
@@ -45,6 +46,8 @@ const Chat = () => {
 
         socket.emit('join', { name, room }, (error) => {
             if(error) {
+                history.replace('/');
+                window.location.reload();
                 window.alert(error);
             }
         });
