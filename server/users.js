@@ -20,8 +20,8 @@ const addUser = ({ id, name, room }) => {
 const removeUser = (id) => {
     const index = users.findIndex(user => user.id === id);
 
-    if (index !== 1) {
-        users.splice(index, 1)[0];
+    if (index !== -1) {
+        users.splice(index, 1);
     }
 };
 

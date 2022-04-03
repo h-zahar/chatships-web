@@ -14,22 +14,12 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketio(server, {
     cors: {
-        origins: ["*"],
-        handlePreflightRequest: (req, res) => {
-            res.writeHand(200, {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET,POST",
-                "Access-Control-Allow-Headers": "custom-header",
-                "Access-Control-Allow-Credentials": false
-            });
-            res.end();
-        }
+        origins: ["https://chatships.web.app", "https://www.google.com"],
+        // allowedHeaders: ["accept-header"],
+        methods: ["GET", "POST"]
+        // credentials: true
     }
 });
-
-//   allowedHeaders: ["accept-header"],
-//   methods: ["GET", "POST"]
-//   credentials: true
 
 io.on('connection', (socket) => {
     // console.log('New connection!');
@@ -42,10 +32,10 @@ io.on('connection', (socket) => {
             return callback(error);
         }
 
+        socket.join(user.room);
+
         socket.emit('message', { user: 'admin', text: `hey ${user.name}, welcome to ${user.room}!` });
         socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
-
-        socket.join(user.room);
 
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
@@ -56,7 +46,6 @@ io.on('connection', (socket) => {
         const user = getUser(socket.id);
         io.to(user.room).emit('message', { user: user.name, text: message });
         io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
-
         callback();
     });
 
@@ -67,7 +56,7 @@ io.on('connection', (socket) => {
         if (user) {
             io.to(user.room).emit('message', { user: 'admin', text: `${user.name} has left.` });
             io.to(user.room).emit('roomData', { room: user.room, users: getRemainedUsersInRoom(user.id,user.room) });
-            removeUser();
+            removeUser(socket.id);
         }
     });
 });

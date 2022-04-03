@@ -27,20 +27,20 @@ const Chat = () => {
         setRoom(room);
 
         socket = io(ENDPOINT, {
-            withCredentials: false,
-            transportOptions: {
-                polling: {
-                    extraHeaders: {
-                        "custom-header": "checked"
-                    }
-                }
-            }
-        });
-            // reconnectionAttempts: 'infinity'
+            reconnectionAttempts: 'infinity'
             // withCredentials: true,
             // extraHeaders: {
             //     "accept-header": "approved"
             // }
+            // transportOptions: {
+            //     polling: {
+            //         extraHeaders: {
+            //             "custom-header": "checked"
+            //         }
+            //     }
+            // }
+        });
+            // withCredentials: true,
         // console.log(socket);
 
         socket.emit('join', { name, room }, (error) => {
@@ -51,8 +51,8 @@ const Chat = () => {
 
         return () => {
             socket.emit('disconnect');
-            socket.off('disconnect');
             socket.off('join');
+            // socket.off('disconnect');
         };
         
     }, [location.search]);
