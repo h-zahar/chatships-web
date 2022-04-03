@@ -24,6 +24,20 @@
     justify-content: flex-end;
     padding: 0 5%;
     margin-top: 3px;
+    animation: 0.5s 1;
+    animation-name: anim-op;
+  }
+
+  @keyframes anim-op {
+    0% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
   
   .sentText {
