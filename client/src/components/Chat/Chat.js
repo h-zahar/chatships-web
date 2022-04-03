@@ -18,7 +18,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const history = useHistory();
 
-    const ENDPOINT = 'https://server-chatships.herokuapp.com/';
+    const ENDPOINT = 'http://localhost:5000/';
 
     const location = useLocation();
     useEffect(() => {
@@ -82,11 +82,20 @@ const Chat = () => {
         e.preventDefault();
 
         if (message) {
-            socket.emit('sendMessage', message, () => setMessage(''))
+            document.getElementById('in').disabled = true;
+            document.getElementById('send-btn').disabled = true;
+            document.getElementById('send-btn').style.cursor = 'wait';
+            
+            socket.emit('sendMessage', message, () => {
+                setMessage('');
+                document.getElementById('in').disabled = false;
+                document.getElementById('send-btn').disabled = false;
+                document.getElementById('send-btn').style.cursor = 'initial';
+                document.getElementById('in').focus();
+            });
+        } else {
+            document.getElementById('in').focus();
         }
-
-        document.getElementById('in').focus();
-
     };
 
 
