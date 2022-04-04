@@ -81,20 +81,19 @@ const Chat = () => {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        if (message) {
-            document.getElementById('in').disabled = true;
+        document.getElementById('in').focus();
+
+        let msgPayload = message;
+
+        if (msgPayload) {
+            setMessage('');
             document.getElementById('send-btn').disabled = true;
             document.getElementById('send-btn').style.cursor = 'wait';
 
             socket.emit('sendMessage', message, () => {
-                setMessage('');
-                document.getElementById('in').disabled = false;
                 document.getElementById('send-btn').disabled = false;
                 document.getElementById('send-btn').style.cursor = 'initial';
-                document.getElementById('in').focus();
             });
-        } else {
-            document.getElementById('in').focus();
         }
     };
 
