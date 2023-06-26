@@ -18,7 +18,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const history = useHistory();
 
-    const ENDPOINT = 'https://server-chatships.herokuapp.com/';
+    const ENDPOINT = 'https://apichatships-hzrifat.b4a.run/';
 
     const location = useLocation();
     useEffect(() => {
