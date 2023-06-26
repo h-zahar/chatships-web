@@ -13,5 +13,4 @@ RUN npm install
 # Define the entry point for the container
 CMD ["npm", "start"]
 
-EXPOSE 443/tcp
-EXPOSE 443/udp
+EXPOSE 5000
